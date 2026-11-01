@@ -141,3 +141,74 @@ if (profileImage) {
         );
     });
 }
+
+// ==================== AJAX CONTACT FORM ====================
+
+const contactForm = document.getElementById("contact-form");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const submitButton = contactForm.querySelector(
+            'button[type="submit"]'
+        );
+
+        const formStatus = document.getElementById("form-status");
+
+        const originalButtonText = submitButton.innerHTML;
+
+        // Show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Sending... <i class="bi bi-arrow-repeat ms-2"></i>';
+
+        formStatus.textContent = "";
+        formStatus.className = "form-note mt-3 mb-0";
+
+        try {
+
+            const response = await fetch(contactForm.action, {
+                method: "POST",
+                body: new FormData(contactForm),
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.ok) {
+
+                formStatus.textContent =
+                    "✓ Thank you! Your message has been sent successfully. I'll get back to you soon.";
+
+                formStatus.classList.add("text-success");
+
+                contactForm.reset();
+
+            } else {
+
+                formStatus.textContent =
+                    "Sorry, something went wrong. Please try again.";
+
+                formStatus.classList.add("text-danger");
+
+            }
+
+        } catch (error) {
+
+            formStatus.textContent =
+                "Unable to send your message. Please check your internet connection and try again.";
+
+            formStatus.classList.add("text-danger");
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+
+        }
+
+    });
+
+}

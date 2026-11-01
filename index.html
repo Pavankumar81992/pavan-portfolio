@@ -684,9 +684,10 @@
                     <!-- Contact Form -->
         <div class="col-lg-7">
 
-            <form class="contact-form"
-                action="https://formspree.io/f/mbggzyky"
-                method="POST">
+           <form id="contact-form"
+                    class="contact-form"
+                    action="https://formspree.io/f/mbggzyky"
+                    method="POST">
 
                 <div class="row g-3">
 
@@ -754,9 +755,10 @@
 
                 </div>
 
-                <p class="form-note mt-3 mb-0">
-                    Your message will be sent directly to my email.
-                    I'll get back to you as soon as possible.
+                <p id="form-status"
+                class="form-note mt-3 mb-0"
+                role="status"
+                aria-live="polite">
                 </p>
 
             </form>
